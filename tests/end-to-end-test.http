@@ -1,0 +1,190 @@
+### End-to-End Test - Service Provider Marketplace
+@userServiceUrl = http://localhost:8085/api/users
+@serviceProviderServiceUrl = http://localhost:8081/api/services
+@bookingServiceUrl = http://localhost:8082/api/bookings
+@reviewServiceUrl = http://localhost:8083/api/reviews
+@authServiceUrl = http://localhost:8084/api/auth
+
+### PART 1: USER REGISTRATION AND MANAGEMENT
+
+### Create a service provider user
+# @name createServiceProvider
+POST {{userServiceUrl}}
+Content-Type: application/json
+
+{
+  "username": "techexpert",
+  "firstName": "Alex",
+  "lastName": "Johnson",
+  "email": "alex.johnson@example.com",
+  "phone": "+1234567890",
+  "bio": "Experienced software developer with 10+ years in web and mobile development",
+  "profilePictureUrl": "https://example.com/profiles/alexj.jpg"
+}
+
+### Create a client/user
+# @name createClient
+POST {{userServiceUrl}}
+Content-Type: application/json
+
+{
+  "username": "businessowner",
+  "firstName": "Sarah",
+  "lastName": "Smith",
+  "email": "sarah.smith@example.com",
+  "phone": "+1987654321",
+  "bio": "Small business owner looking for tech services",
+  "profilePictureUrl": "https://example.com/profiles/sarahs.jpg"
+}
+
+### Verify service provider profile was created
+GET {{userServiceUrl}}/techexpert
+
+### Verify client profile was created error
+GET {{userServiceUrl}}/businessowner
+
+### PART 2: SERVICE LISTING
+
+### Create a service listing
+# @name createService
+POST {{serviceProviderServiceUrl}}
+Content-Type: application/json
+
+{
+  "providerId": 1,
+  "title": "Custom Website Development",
+  "description": "Full-stack custom website development including responsive design, database integration, and deployment to your preferred hosting service.",
+  "keySkills": ["JavaScript", "React", "Node.js", "MongoDB", "Responsive Design"],
+  "category": "Web Development",
+  "hourlyRate": 85.0,
+  "isAvailable": true
+}
+
+### Create another service listing
+POST {{serviceProviderServiceUrl}}
+Content-Type: application/json
+
+{
+  "providerId": 1,
+  "title": "Mobile App Development",
+  "description": "Native and cross-platform mobile app development for iOS and Android. Includes app store submission assistance.",
+  "keySkills": ["React Native", "Swift", "Kotlin", "Firebase", "UX Design"],
+  "category": "Mobile Development",
+  "hourlyRate": 95.0,
+  "isAvailable": true
+}
+
+### Verify the service was created
+GET {{serviceProviderServiceUrl}}/1
+
+### Search for services by category
+GET {{serviceProviderServiceUrl}}/category/Web%20Development
+
+### Search for services by provider
+GET {{serviceProviderServiceUrl}}/provider/1
+
+### Get all available services
+GET {{serviceProviderServiceUrl}}/available
+
+### PART 3: BOOKING PROCESS
+
+### Create a booking request
+# @name createBooking
+POST {{bookingServiceUrl}}
+Content-Type: application/json
+
+{
+  "serviceId": 1,
+  "userId": 1,
+  "requestDate": "2025-05-02T21:10:00Z",
+  "startTime": "2025-05-05T21:10:00Z",
+  "endTime": "2025-05-05T23:10:00Z",
+  "message": "I need a professional website for my small business. Looking to have an online store and contact form."
+}
+
+### Service provider views the booking request
+GET {{bookingServiceUrl}}/1
+
+### Service provider accepts the booking
+PUT {{bookingServiceUrl}}/1/status?status=ACCEPTED
+
+### Client checks the booking status
+GET {{bookingServiceUrl}}/1
+
+### Get all bookings for the service provider
+GET {{bookingServiceUrl}}/service/1
+
+### Get all bookings for the client
+GET {{bookingServiceUrl}}/user/1
+
+### Service provider marks the booking as completed
+PUT {{bookingServiceUrl}}/1/status?status=COMPLETED
+
+### PART 4: REVIEW PROCESS
+
+### Client leaves a review for the completed service
+# @name createReview
+POST {{reviewServiceUrl}}
+Content-Type: application/json
+
+{
+  "serviceId": 1,
+  "userId": 1,
+  "rating": 5,
+  "comment": "Excellent service! Alex built a fantastic website for my business. Very professional and delivered on time. Highly recommended!"
+}
+
+### Check that the review was created
+GET {{reviewServiceUrl}}/1
+
+### View all reviews for the service
+GET {{reviewServiceUrl}}/service/1
+
+### View all reviews by the client
+GET {{reviewServiceUrl}}/user/1
+
+### Check the average rating for the service
+GET {{reviewServiceUrl}}/service/1/rating
+
+### Check the average rating for the service provider
+GET {{reviewServiceUrl}}/provider/1/rating
+
+### PART 5: UPDATE AND DELETE OPERATIONS
+
+### Client updates their profile
+PUT {{userServiceUrl}}/businessowner
+Content-Type: application/json
+
+{
+  "bio": "Small business owner with an expanding online presence. Looking for ongoing tech support."
+}
+
+### Service provider updates the service details
+PUT {{serviceProviderServiceUrl}}/1
+Content-Type: application/json
+
+{
+  "title": "Premium Website Development",
+  "description": "High-end custom website development with advanced features including SEO optimization, analytics integration, and performance tuning.",
+  "hourlyRate": 95.0
+}
+
+### Client updates their review
+PUT {{reviewServiceUrl}}/1
+Content-Type: application/json
+
+{
+  "rating": 5,
+  "comment": "Outstanding work! Alex created a website that exceeded my expectations. Sales have increased by 30% since the site went live. Will definitely use again for future projects."
+}
+
+### Verify the updated service information
+GET {{serviceProviderServiceUrl}}/1
+
+### Verify the updated review
+GET {{reviewServiceUrl}}/1
+
+### Verify the updated client profile
+GET {{userServiceUrl}}/businessowner
+
+### End of test - all operations verified successfully 

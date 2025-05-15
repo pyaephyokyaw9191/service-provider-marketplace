@@ -40,7 +40,7 @@ Content-Type: application/json
 ### Verify service provider profile was created
 GET {{userServiceUrl}}/techexpert
 
-### Verify client profile was created error
+### Verify client profile was created
 GET {{userServiceUrl}}/businessowner
 
 ### PART 2: SERVICE LISTING

@@ -53,7 +53,7 @@ class AuthenticationServiceTest {
         signupRequest.setUsername("testuser");
         signupRequest.setEmail("test@example.com");
         signupRequest.setPassword("password");
-        signupRequest.setRole(Role.ATTENDEE);
+        signupRequest.setRole(Role.USER);
 
         loginRequest = new LoginRequest();
         loginRequest.setUsername("testuser");
@@ -67,7 +67,7 @@ class AuthenticationServiceTest {
                 .username("testuser")
                 .email("test@example.com")
                 .password(encodedPassword)
-                .role(Role.ATTENDEE)
+                .role(Role.USER)
                 .build();
     }
 

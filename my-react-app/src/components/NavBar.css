@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap');
+
+
+.navbar {
+    background-color: #ffffff;
+    padding: 5px 30px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgb(190, 190, 190);
+}
+  
+.logo {
+    font-family: "Bagel Fat One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: #ADEA16;
+    font-size: 46px;
+    text-decoration: none;
+    
+}
+  
+.logo-img {
+    height: 70px;
+}
+  
+.divider {
+    width: 2px;
+    height: 60px;
+    background-color: black;
+    margin: 0 10px;
+}
+  
+.navbar-title {
+    margin-left: 15px;
+    font-family: 'Papyrus', sans-serif;
+    font-weight: bold;
+    line-height: 1.2;
+    color: #ADEA16;
+} 
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 40px;
+    margin-left: 50px;
+}
+  
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+  
+.nav-link {
+    color:#ADEA16;
+    text-decoration: none;
+    display: none;
+    margin-top: 3px;
+    font-size: 18px;
+}
+  
+.profile-img {
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+  
+/* For medium+ screens, show links */
+@media (min-width: 768px) {
+  .nav-link {
+    display: block;
+  }
+
+  .divider {
+    height: 120px;
+  }
+
+  .navbar-title {
+    font-size: 2rem;
+  }
+
+  .navbar-links {
+    margin-top: 0;
+  }
+}
+  

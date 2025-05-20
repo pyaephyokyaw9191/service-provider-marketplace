@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -29,6 +30,7 @@ public class UserProfile {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false, unique = true)
     private String phone;
 
     @Column(length = 1000)
